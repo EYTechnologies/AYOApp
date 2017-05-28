@@ -8,11 +8,23 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
+import { Onboarding1Page } from '../pages/onboarding1/onboarding1';
+import { Onboarding2Page } from '../pages/onboarding2/onboarding2';
+import { Onboarding3Page } from '../pages/onboarding3/onboarding3';
+import { Onboarding4Page } from '../pages/onboarding4/onboarding4';
+import { ChatPage } from '../pages/chat/chat';
+import { BrowsePage } from '../pages/browse/browse';
+import { MatchesPage } from '../pages/matches/matches';
+import { ProfilePage } from '../pages/profile/profile';
+import { TutorialPage } from '../pages/tutorial/tutorial';
+
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 import { Facebook } from '@ionic-native/facebook';
+import { IonicStorageModule } from '@ionic/storage';
+import { UserdataProvider } from '../providers/userdata/userdata';
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -32,12 +44,22 @@ const cloudSettings: CloudSettings = {
     ContactPage,
     HomePage,
     TabsPage,
-    LoginPage
+    LoginPage,
+    Onboarding1Page,
+    Onboarding2Page,
+    Onboarding3Page,
+    Onboarding4Page,
+    ChatPage,
+    BrowsePage,
+    MatchesPage,
+    ProfilePage,
+    TutorialPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    CloudModule.forRoot(cloudSettings)
+    CloudModule.forRoot(cloudSettings),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -46,13 +68,24 @@ const cloudSettings: CloudSettings = {
     ContactPage,
     HomePage,
     TabsPage,
-    LoginPage
+    LoginPage,    
+    Onboarding1Page,
+    Onboarding2Page,
+    Onboarding3Page,
+    Onboarding4Page,
+    ChatPage,
+    BrowsePage,
+    MatchesPage,
+    ProfilePage,
+    TutorialPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    Storage,
     Facebook,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    UserdataProvider
   ]
 })
 export class AppModule {}
