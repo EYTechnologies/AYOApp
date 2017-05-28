@@ -31,7 +31,8 @@ const cloudSettings: CloudSettings = {
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -44,7 +45,8 @@ const cloudSettings: CloudSettings = {
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    LoginPage
   ],
   providers: [
     StatusBar,

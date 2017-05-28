@@ -1,4 +1,4 @@
-# Mingle5
+# AYO App
 
 >Dating application built with MEAN stack and Ionic2. 
 
