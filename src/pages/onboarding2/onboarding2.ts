@@ -22,13 +22,16 @@ export class Onboarding2Page {
   	preference: any;
   	dob: any;
   	picture: any;
+    lat: any;
+    long: any;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder) {
+   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder) {
    	this.picture = this.navParams.get('picture');
   	this.dob = this.navParams.get('dob');
     this.usergender = this.navParams.get('gender');
-
+    console.log(this.usergender);
+    
   	this.gender = [
         {
           options: [

@@ -28,6 +28,9 @@ import { Facebook } from '@ionic-native/facebook';
 import { IonicStorageModule } from '@ionic/storage';
 import { UserdataProvider } from '../providers/userdata/userdata';
 
+
+import { Geolocation } from '@ionic-native/geolocation';
+
 const cloudSettings: CloudSettings = {
   'core': {
     'app_id': 'cf5c2c8c'
@@ -89,7 +92,9 @@ const cloudSettings: CloudSettings = {
     HTTP,
     Facebook,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    UserdataProvider
+    UserdataProvider,
+    Geolocation
+
   ]
 })
 export class AppModule {}

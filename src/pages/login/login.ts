@@ -6,6 +6,7 @@ import { HomePage } from "../home/home";
 import { Onboarding1Page } from "../onboarding1/onboarding1";
 import { UserdataProvider } from "../../providers/userdata/userdata";
 import { HTTP, HTTPResponse } from '@ionic-native/http';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the LoginPage page.
@@ -24,7 +25,7 @@ export class LoginPage {
   
   constructor(public loadingCtrl: LoadingController, public userData: UserdataProvider,
     public navCtrl: NavController, public navParams: NavParams, private fb: Facebook, 
-    public facebookAuth: FacebookAuth, public user: User, private http: HTTP) 
+    public facebookAuth: FacebookAuth, public user: User, private http: HTTP, public storage: Storage) 
 
   {
   	this.loadingPopup = this.loadingCtrl.create({
@@ -68,12 +69,42 @@ userConnectedToFacebook(msg) {
 
       console.log(msg.authResponse);
 
-      this.fb.api('me?fields=email', null).then(userinfo => {
+      this.fb.api('me?fields=id', null).then(userinfo => {
               this.loadingPopup.present();
+              var link = 'http://ayo-app.herokuapp.com/api/users/retrieve';
+                let headers = new Headers({ 'Content-Type': 'application/json' });
+                var data_string = JSON.stringify({ username: userinfo.id});
+                console.log(data_string);
+                this.http.post(link, data_string, headers)
+                        .then( data => 
+                             {
+                                this.userfacebookdata = data.data;
+                                console.warn("User Facebook Data - ");
+                                console.log("!@!@!@");
+                                console.log(this.userfacebookdata);
+                                //local storage
+                                this.userData.login(this.userfacebookdata.username, this.userfacebookdata.token);
+                                this.loadingPopup.dismiss();
 
-              this.userData.login(userinfo.email);
-              this.loadingPopup.dismiss();
-              this.navCtrl.setRoot(Onboarding1Page);
+                                this.storage.get('token').then((value) => {
+                                  console.log(value);
+                                  return value;
+
+                                });
+
+                                this.navCtrl.setRoot(HomePage);
+                                // navigating to the onboarding page
+                                // this.navCtrl.setRoot(Onboarding1Page, {picture: userinfo.picture.data.url, dob: userinfo.birthday, gender: userinfo.gender, relationship_status: userinfo.relationship_status});
+                                // console.log(this.userfacebookdata[0].email);
+                            })
+                        .catch( error=> 
+                          {
+                            console.log(error)
+                          });
+
+              // this.userData.login(this.userfacebookdata.username, this.userfacebookdata.token);
+              // this.loadingPopup.dismiss();
+           
     }, err => {console.log(err)});
 
 
@@ -90,14 +121,16 @@ usernotconnectedtofacebook(msg)
       console.log(msg.authResponse.userID);
 
       this.fb.api('me?fields=email,first_name,last_name,about,birthday,gender,picture.width(200).height(200),location,id,relationship_status', null).then(userinfo => {
-
-                console.log("=>" + userinfo);
+                console.log("!@!@!@!@!@!@");
+                console.log(userinfo);
                 
                 // API data - to send the data to the databse.
-                var link = 'http://ayo-app.herokuapp.com/api/users/register';
+                var link = 'https://ayo-app.herokuapp.com/api/users/register';
                 let headers = new Headers({ 'Content-Type': 'application/json' });
-                var data_string = JSON.stringify({ first_name: userinfo.first_name, last_name: userinfo.last_name, gender: userinfo.gender, email: userinfo.email, username: userinfo.id, birthday: userinfo.birthday, realtionship_status: userinfo.relationship_status, location: userinfo.location, image: userinfo.picture.data.url, display_name: userinfo.first_name, location_lat: 28.6334424, location_lang: 77.3841108});
+                var data_string = JSON.stringify({ first_name: userinfo.first_name, last_name: userinfo.last_name, gender: userinfo.gender, email: userinfo.email, username: userinfo.id, birthday: userinfo.birthday, relationship_status: userinfo.relationship_status, location: userinfo.location, image: userinfo.picture.data.url, display_name: userinfo.first_name, location_lat: 28.6334424, location_long: 77.3841108});
                 console.log(data_string);
+                
+
                 this.http.post(link, data_string, headers)
                         .then( data => 
                              {
