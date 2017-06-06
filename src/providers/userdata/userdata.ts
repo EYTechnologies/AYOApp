@@ -14,20 +14,22 @@ import { Storage } from '@ionic/storage';
 export class UserdataProvider {
   HAS_LOGGED_IN = 'hasLoggedIn';
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
+  username: any;
+  token: any;
 
   constructor(public events: Events, public storage: Storage) {
     console.log('Hello UserdataProvider Provider');
   }
 
-  login(username) {
+  login(username, token) {
     this.storage.set(this.HAS_LOGGED_IN, true);
-    this.setUsername(username);
+    this.setUsername(username, token);
     this.events.publish('user:login');
   };
 
   signup(username) {
     this.storage.set(this.HAS_LOGGED_IN, true);
-    this.setUsername(username);
+    this.setUsername(username, this.token);
     this.events.publish('user:signup');
   };
 
@@ -37,8 +39,9 @@ export class UserdataProvider {
     this.events.publish('user:logout');
   };
 
-  setUsername(username) {
+  setUsername(username, token) {
     this.storage.set('username', username);
+    this.storage.set(this.token, 'token');
   };
 
   getUsername() {
@@ -59,4 +62,5 @@ export class UserdataProvider {
       return value;
     })
   };
+
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { TabsPage } from '../tabs/tabs';
@@ -34,16 +34,22 @@ export class TutorialPage {
         this.navCtrl.push(TabsPage).then(() => {
         this.storage.set('hasSeenTutorial', 'true');
       })
-    } else 
-    this.navCtrl.push(LoginPage);
+    } 
+    else 
+    {
+    this.navCtrl.push(LoginPage).then(() => {
+        this.storage.set('hasSeenTutorial', 'true');
+      })
+    }
     
   }
 
-  onSlideChangeStart(slider) {
+  onSlideChangeStart(slider: Slides) {
     this.showSkip = !slider.isEnd();
   }
 
   ionViewDidEnter() {
+    
   }
 
   ionViewDidLeave() {

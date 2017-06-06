@@ -2,6 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { MultiPickerModule } from "ion-multi-picker";
 
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
@@ -21,6 +22,7 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { HTTP } from '@ionic-native/http';
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { IonicStorageModule } from '@ionic/storage';
@@ -59,6 +61,7 @@ const cloudSettings: CloudSettings = {
     BrowserModule,
     IonicModule.forRoot(MyApp),
     CloudModule.forRoot(cloudSettings),
+    MultiPickerModule,
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
@@ -83,6 +86,7 @@ const cloudSettings: CloudSettings = {
     StatusBar,
     SplashScreen,
     Storage,
+    HTTP,
     Facebook,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserdataProvider

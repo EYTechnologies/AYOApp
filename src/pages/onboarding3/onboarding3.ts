@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Onboarding4Page } from "../onboarding4/onboarding4";
 
 /**
  * Generated class for the Onboarding3Page page.
@@ -13,12 +14,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'onboarding3.html',
 })
 export class Onboarding3Page {
-
+  picture: any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+      this.picture = this.navParams.get('picture');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Onboarding3Page');
+  }
+  next()
+  {
+    this.navCtrl.push(Onboarding4Page);
   }
 
 }
