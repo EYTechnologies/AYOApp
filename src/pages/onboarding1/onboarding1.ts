@@ -22,6 +22,8 @@ export class Onboarding1Page {
   lat: number;
   lang: number;
   registerUser = new Array();
+  locationsaved: boolean = false;
+  confirmationtext: any;
 	
   constructor(public navCtrl: NavController, public navParams: NavParams, private geolocation: Geolocation) {
 
@@ -51,6 +53,8 @@ export class Onboarding1Page {
         this.lang = resp.coords.longitude;
         this.registerUser.push({location_lat: this.lat});
         this.registerUser.push({location_long: this.lang});
+        this.locationsaved = true; 
+        this.confirmationtext = "Thank you! We know your location now";
 
         console.log(this.lat);
         console.log(this.lang);

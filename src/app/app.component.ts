@@ -27,12 +27,12 @@ export class MyApp {
                 console.log("has logged in - "+hasLoggedIn);
                      if (hasLoggedIn)
                      {
-                         this.rootPage = TabsPage;
-                          // this.rootPage = Onboarding1Page;
+                         // this.rootPage = TabsPage;
+                          this.rootPage = Onboarding1Page;
                         
                      } else {
-                         this.rootPage = LoginPage;
-                         // this.rootPage = Onboarding1Page;
+                         // this.rootPage = LoginPage;
+                         this.rootPage = Onboarding1Page;
                      }
               })
              
