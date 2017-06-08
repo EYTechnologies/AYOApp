@@ -8,8 +8,30 @@
 <p>Onboarding Step 3</p>
 <h2>Profile Pic</h2>
 <ion-avatar text-center class="profilepicture"><img [src]="picture"></ion-avatar>
+
+<ion-grid style="border: 1px solid gray">
+	<ion-row>
+		<ion-col col-4>
+			<div class="up-img">
+				<img [src]="picture">
+			</div>			
+		</ion-col>
+
+		<ion-col col-4>
+			<div class="up-img">
+				<img [src]="picture">
+			</div>		
+		</ion-col>
+
+		<ion-col col-4>
+			<div class="up-img">
+				<img [src]="picture">
+			</div>		
+		</ion-col>
+	</ion-row>
+</ion-grid>
+
 </ion-content>
 <ion-footer>
 <button ion-button block cover color="danger" (click)="next()">Next</button>
 </ion-footer>
-

@@ -28,6 +28,8 @@ import { Facebook } from '@ionic-native/facebook';
 import { IonicStorageModule } from '@ionic/storage';
 import { UserdataProvider } from '../providers/userdata/userdata';
 
+import { HttpModule } from '@angular/http';
+
 
 import { Geolocation } from '@ionic-native/geolocation';
 
@@ -65,7 +67,8 @@ const cloudSettings: CloudSettings = {
     IonicModule.forRoot(MyApp),
     CloudModule.forRoot(cloudSettings),
     MultiPickerModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

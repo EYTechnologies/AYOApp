@@ -8,6 +8,8 @@ import { UserdataProvider } from "../../providers/userdata/userdata";
 import { HTTP, HTTPResponse } from '@ionic-native/http';
 import { Storage } from '@ionic/storage';
 
+import {Http, Headers, RequestOptions} from '@angular/http';
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -22,10 +24,11 @@ import { Storage } from '@ionic/storage';
 export class LoginPage {
   loadingPopup: any;
   userfacebookdata: any;
+  location: any;
   
   constructor(public loadingCtrl: LoadingController, public userData: UserdataProvider,
     public navCtrl: NavController, public navParams: NavParams, private fb: Facebook, 
-    public facebookAuth: FacebookAuth, public user: User, private http: HTTP, public storage: Storage) 
+    public facebookAuth: FacebookAuth, public user: User, private http: HTTP, public storage: Storage, public htttp: Http) 
 
   {
   	this.loadingPopup = this.loadingCtrl.create({
@@ -123,31 +126,54 @@ usernotconnectedtofacebook(msg)
       this.fb.api('me?fields=email,first_name,last_name,about,birthday,gender,picture.width(200).height(200),location,id,relationship_status', null).then(userinfo => {
                 console.log("!@!@!@!@!@!@");
                 console.log(userinfo);
-                
+                this.location =  {
+                  "coordinates": [0,0]
+                };
                 // API data - to send the data to the databse.
                 var link = 'https://ayo-app.herokuapp.com/api/users/register';
                 let headers = new Headers({ 'Content-Type': 'application/json' });
-                var data_string = JSON.stringify({ first_name: userinfo.first_name, last_name: userinfo.last_name, gender: userinfo.gender, email: userinfo.email, username: userinfo.id, birthday: userinfo.birthday, relationship_status: userinfo.relationship_status, location: userinfo.location, image: userinfo.picture.data.url, display_name: userinfo.first_name, location_lat: 0, location_long: 0});
+                var data_string = JSON.stringify({username: userinfo.id, first_name: userinfo.first_name, last_name: userinfo.last_name, email: userinfo.email, location: this.location, profile_picture: userinfo.picture.data.url, dob: userinfo.birthday, gender: userinfo.gender, relationship_status: userinfo.relationship_status, preference: null});
+
+                console.log('!@!@!@!@!@');
                 console.log(data_string);
                 
+                var options = new RequestOptions({headers: headers});
+                this.htttp.post(link, data_string, options)
+                  .map(res => res.json())
+                    .subscribe((data) => {
+                      console.log(data);
+                      this.userfacebookdata = data.data;
+                      console.log("User Facebook Data - "+this.userfacebookdata);
 
-                this.http.post(link, data_string, headers)
-                        .then( data => 
-                             {
-                                this.userfacebookdata = data.data;
-                                console.log("User Facebook Data - "+this.userfacebookdata);
-                                //local storage
-                                this.userData.login(this.userfacebookdata.username, this.userfacebookdata.token);
-                                this.loadingPopup.dismiss();
+                      //local storage
+                      this.userData.login(this.userfacebookdata.username, this.userfacebookdata.token);
+                      this.loadingPopup.dismiss();
+
+                      // navigating to the onboarding page
+                      this.navCtrl.setRoot(Onboarding1Page, {picture: userinfo.picture.data.url, dob: userinfo.birthday, gender: userinfo.gender, relationship_status: userinfo.relationship_status});
+                      // console.log(this.userfacebookdata[0].email);
+
+
+                    }, (err) => { 
+                      console.log(err); 
+                    });
+                // this.http.post(link, data_string, headers)
+                //         .then( data => 
+                //              {
+                //                 this.userfacebookdata = data.data;
+                //                 console.log("User Facebook Data - "+this.userfacebookdata);
+                //                 //local storage
+                //                 this.userData.login(this.userfacebookdata.username, this.userfacebookdata.token);
+                //                 this.loadingPopup.dismiss();
                                
-                                // navigating to the onboarding page
-                                this.navCtrl.setRoot(Onboarding1Page, {picture: userinfo.picture.data.url, dob: userinfo.birthday, gender: userinfo.gender, relationship_status: userinfo.relationship_status});
-                                // console.log(this.userfacebookdata[0].email);
-                            })
-                        .catch( error=> 
-                          {
-                            console.log(error)
-                          });
+                //                 // navigating to the onboarding page
+                //                 this.navCtrl.setRoot(Onboarding1Page, {picture: userinfo.picture.data.url, dob: userinfo.birthday, gender: userinfo.gender, relationship_status: userinfo.relationship_status});
+                //                 // console.log(this.userfacebookdata[0].email);
+                //             })
+                //         .catch( error=> 
+                //           {
+                //             console.log(error)
+                //           });
 
    
         }, err => {console.log(err)});

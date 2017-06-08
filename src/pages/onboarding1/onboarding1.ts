@@ -21,7 +21,7 @@ export class Onboarding1Page {
   gender: any;
   lat: number;
   lang: number;
-  registerUser: any = {};
+  registerUser = new Array();
 	
   constructor(public navCtrl: NavController, public navParams: NavParams, private geolocation: Geolocation) {
 
@@ -29,10 +29,12 @@ export class Onboarding1Page {
      this.registerUser.push({profile_picture: this.picture});
 
   	 this.dob = this.navParams.get('dob');
-     this.registerUser.push({picture: this.dob});
+     this.registerUser.push({dob: this.dob});
      
      this.gender = this.navParams.get('gender');
-     this.registerUser.push({picture: this.gender});
+     this.registerUser.push({gender: this.gender});
+     console.log('@#@#@#@@#@#@#');
+     console.log(this.registerUser);
   }
 
 

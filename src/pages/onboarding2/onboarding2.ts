@@ -25,11 +25,16 @@ export class Onboarding2Page {
     lat: any;
     long: any;
 
+    userpreference: any;
+
+
 
    constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder) {
    	this.picture = this.navParams.get('picture');
   	this.dob = this.navParams.get('dob');
     this.usergender = this.navParams.get('gender');
+    this.userpreference = 'Straight';
+
     console.log(this.usergender);
     
   	this.gender = [
