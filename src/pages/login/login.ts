@@ -127,7 +127,7 @@ usernotconnectedtofacebook(msg)
                 // API data - to send the data to the databse.
                 var link = 'https://ayo-app.herokuapp.com/api/users/register';
                 let headers = new Headers({ 'Content-Type': 'application/json' });
-                var data_string = JSON.stringify({ first_name: userinfo.first_name, last_name: userinfo.last_name, gender: userinfo.gender, email: userinfo.email, username: userinfo.id, birthday: userinfo.birthday, relationship_status: userinfo.relationship_status, location: userinfo.location, image: userinfo.picture.data.url, display_name: userinfo.first_name, location_lat: 28.6334424, location_long: 77.3841108});
+                var data_string = JSON.stringify({ first_name: userinfo.first_name, last_name: userinfo.last_name, gender: userinfo.gender, email: userinfo.email, username: userinfo.id, birthday: userinfo.birthday, relationship_status: userinfo.relationship_status, location: userinfo.location, image: userinfo.picture.data.url, display_name: userinfo.first_name, location_lat: 0, location_long: 0});
                 console.log(data_string);
                 
 
