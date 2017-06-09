@@ -68,6 +68,6 @@ export class Onboarding1Page {
 
   next()
   {
-    this.navCtrl.push(Onboarding2Page, {picture: this.picture, dob: this.dob, gender: this.gender, location_lat: this.lat, location_long: this.lang});
+    this.navCtrl.push(Onboarding2Page, {data: this.registerUser});
   }
 }

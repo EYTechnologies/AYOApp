@@ -157,23 +157,7 @@ usernotconnectedtofacebook(msg)
                     }, (err) => { 
                       console.log(err); 
                     });
-                // this.http.post(link, data_string, headers)
-                //         .then( data => 
-                //              {
-                //                 this.userfacebookdata = data.data;
-                //                 console.log("User Facebook Data - "+this.userfacebookdata);
-                //                 //local storage
-                //                 this.userData.login(this.userfacebookdata.username, this.userfacebookdata.token);
-                //                 this.loadingPopup.dismiss();
-                               
-                //                 // navigating to the onboarding page
-                //                 this.navCtrl.setRoot(Onboarding1Page, {picture: userinfo.picture.data.url, dob: userinfo.birthday, gender: userinfo.gender, relationship_status: userinfo.relationship_status});
-                //                 // console.log(this.userfacebookdata[0].email);
-                //             })
-                //         .catch( error=> 
-                //           {
-                //             console.log(error)
-                //           });
+
 
    
         }, err => {console.log(err)});

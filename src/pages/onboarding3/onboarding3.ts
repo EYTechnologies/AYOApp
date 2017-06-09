@@ -15,9 +15,11 @@ import { Onboarding4Page } from "../onboarding4/onboarding4";
 })
 export class Onboarding3Page {
   picture: any;
+  registerUser: any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
 
-      this.picture = this.navParams.get('picture');
+      this.registerUser = this.navParams.get('data');
+      this.picture = this.registerUser.profile_picture;
   }
 
   ionViewDidLoad() {
@@ -25,7 +27,7 @@ export class Onboarding3Page {
   }
   next()
   {
-    this.navCtrl.push(Onboarding4Page);
+    this.navCtrl.push(Onboarding4Page, {data: this.registerUser});
   }
 
 }
