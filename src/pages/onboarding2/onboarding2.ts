@@ -18,15 +18,14 @@ export class Onboarding2Page {
 
 	ProfileForm: any;
 	gender: any;
-  	usergender: any;
-  	preference: any;
-  	dob: any;
-  	picture: any;
-    lat: any;
-    long: any;
-
-    userpreference: any;
-    registerUser: any;
+  usergender: any;
+  preference: any;
+  userpreference: any;
+  dob: any;
+  picture: any;
+  lat: any;
+  long: any;
+  registerUser: any;
 
 
 
@@ -38,7 +37,6 @@ export class Onboarding2Page {
     this.usergender = this.registerUser.gender;
     this.userpreference = 'Straight';
 
-    console.log(this.usergender);
     
   	this.gender = [
         {
@@ -57,25 +55,22 @@ export class Onboarding2Page {
           ]
         }
     ];
-    // this.initializingForms();
+
   }
-  // initializingForms(){
-  //   // form validations
-  //   this.ProfileForm = this.formBuilder.group({
-  //       dob: [''],
-  //       usergender: [''],
-  //       userpreference: ['']
-  //   });
-  // }
+
     
   ionViewDidLoad() {
     console.log('ionViewDidLoad Onboarding2Page');
   }
   next()
-  {
-    this.registerUser.push({gender: this.gender});
-    this.registerUser.push({preference: this.preference});
+  { this.registerUser.splice(2, 1);
+    this.registerUser.push({gender: this.usergender});
+    console.log(this.registerUser);
+    this.registerUser.splice(1, 1);
+    this.registerUser.push({preference: this.userpreference});
     this.registerUser.push({dob: this.dob});
     this.navCtrl.push(Onboarding3Page, {data: this.registerUser});
+    console.log("onboarding 2 data pushed to 3 -");
+    console.log(this.registerUser);
   }
 }

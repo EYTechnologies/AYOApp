@@ -5,7 +5,7 @@ import { FacebookAuth, User } from '@ionic/cloud-angular';
 import { HomePage } from "../home/home";
 import { Onboarding1Page } from "../onboarding1/onboarding1";
 import { UserdataProvider } from "../../providers/userdata/userdata";
-import { HTTP, HTTPResponse } from '@ionic-native/http';
+
 import { Storage } from '@ionic/storage';
 
 import {Http, Headers, RequestOptions} from '@angular/http';
@@ -28,7 +28,7 @@ export class LoginPage {
   
   constructor(public loadingCtrl: LoadingController, public userData: UserdataProvider,
     public navCtrl: NavController, public navParams: NavParams, private fb: Facebook, 
-    public facebookAuth: FacebookAuth, public user: User, private http: HTTP, public storage: Storage, public htttp: Http) 
+    public facebookAuth: FacebookAuth, public user: User, public storage: Storage, public htttp: Http) 
 
   {
   	this.loadingPopup = this.loadingCtrl.create({
@@ -74,37 +74,7 @@ userConnectedToFacebook(msg) {
 
       this.fb.api('me?fields=id', null).then(userinfo => {
               this.loadingPopup.present();
-              var link = 'http://ayo-app.herokuapp.com/api/users/retrieve';
-                let headers = new Headers({ 'Content-Type': 'application/json' });
-                var data_string = JSON.stringify({ username: userinfo.id});
-                console.log(data_string);
-                this.http.post(link, data_string, headers)
-                        .then( data => 
-                             {
-                                this.userfacebookdata = data.data;
-                                console.warn("User Facebook Data - ");
-                                console.log("!@!@!@");
-                                console.log(this.userfacebookdata);
-                                //local storage
-                                this.userData.login(this.userfacebookdata.username, this.userfacebookdata.token);
-                                this.loadingPopup.dismiss();
-
-                                this.storage.get('token').then((value) => {
-                                  console.log(value);
-                                  return value;
-
-                                });
-
-                                this.navCtrl.setRoot(HomePage);
-                                // navigating to the onboarding page
-                                // this.navCtrl.setRoot(Onboarding1Page, {picture: userinfo.picture.data.url, dob: userinfo.birthday, gender: userinfo.gender, relationship_status: userinfo.relationship_status});
-                                // console.log(this.userfacebookdata[0].email);
-                            })
-                        .catch( error=> 
-                          {
-                            console.log(error)
-                          });
-
+              
               // this.userData.login(this.userfacebookdata.username, this.userfacebookdata.token);
               // this.loadingPopup.dismiss();
            
@@ -143,10 +113,10 @@ usernotconnectedtofacebook(msg)
                     .subscribe((data) => {
                       console.log(data);
                       this.userfacebookdata = data.data;
-                      console.log("User Facebook Data - "+this.userfacebookdata);
+                      // console.log("User Facebook Data - "+this.userfacebookdata);
 
                       //local storage
-                      this.userData.login(this.userfacebookdata.username, this.userfacebookdata.token);
+                      this.userData.login(this.userfacebookdata._id, this.userfacebookdata.token);
                       this.loadingPopup.dismiss();
 
                       // navigating to the onboarding page

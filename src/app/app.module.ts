@@ -22,7 +22,6 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { HTTP } from '@ionic-native/http';
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { IonicStorageModule } from '@ionic/storage';
@@ -92,7 +91,6 @@ const cloudSettings: CloudSettings = {
     StatusBar,
     SplashScreen,
     Storage,
-    HTTP,
     Facebook,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserdataProvider,

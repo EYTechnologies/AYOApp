@@ -4,7 +4,74 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-<button ion-button block (click)="logout()">Logout</button>
-  
+<ion-content>
+
+<ion-avatar text-center class="profilepicture"><img [src]="picture"></ion-avatar>
+<ion-list no-lines>
+			<ion-item>
+			    <ion-label color="primary" stacked>USERNAME</ion-label>
+			    <ion-input type="text" placeholder="Your Username"></ion-input>
+			</ion-item>
+			<ion-item>
+			    <ion-label color="primary" stacked>HEADLINE</ion-label>
+			    <ion-input type="textarea" placeholder="Your Headline"></ion-input>
+			</ion-item>
+</ion-list>
+<ion-grid>
+<ion-row>
+		<ion-col col-3>
+		<ion-list no-lines>
+			<ion-item>
+			    <ion-label color="primary" stacked>DOB</ion-label>
+			    <ion-datetime displayFormat="MM/DD/YY" pickerFormat="MMM DD YYYY" [(ngModel)]="dob">
+			    </ion-datetime>
+			</ion-item>
+		</ion-list>
+		</ion-col>
+		<ion-col col-3>
+		<ion-list no-lines>
+			<ion-item>
+			    <ion-label color="primary" stacked>SEX</ion-label>
+			   <ion-multi-picker ion-input item-content [multiPickerColumns]="gender" [(ngModel)]="usergender" text-left class="multi-picker"></ion-multi-picker>
+			</ion-item>
+		</ion-list>
+		</ion-col>
+		<ion-col col-6>
+		<ion-list no-lines>
+		<ion-item>
+		    <ion-label color="primary" stacked>HOMETOWN</ion-label>
+		    <ion-input type="text" placeholder="Your Hometown" [(ngModel)]="hometown"></ion-input>
+		</ion-item>
+		</ion-list>
+		</ion-col>
+</ion-row>
+<ion-row>
+		<ion-col col-5>
+		<ion-list no-lines>
+			<ion-item>
+			    <ion-label color="primary" stacked>PREFERENCE</ion-label>
+			    <ion-multi-picker ion-input item-content [multiPickerColumns]="preference" [(ngModel)]="userpreference" text-left class="multi-picker"></ion-multi-picker>
+			</ion-item>
+		</ion-list>
+		</ion-col>
+		<ion-col col-3>
+		<ion-list no-lines>
+			<ion-item>
+			    <ion-label color="primary" stacked>HEIGHT</ion-label>
+			   <ion-multi-picker ion-input item-content [multiPickerColumns]="height" [(ngModel)]="userheight" text-left class="multi-picker"></ion-multi-picker>
+			</ion-item>
+		</ion-list>
+		</ion-col>
+		<ion-col col-4>
+		<ion-list no-lines>
+		<ion-item>
+		    <ion-label color="primary" stacked>STATUS</ion-label>
+		     <ion-multi-picker ion-input item-content [multiPickerColumns]="status" [(ngModel)]="userstatus" text-left class="multi-picker"></ion-multi-picker>
+		</ion-item>
+		</ion-list>
+		</ion-col>
+</ion-row>
+</ion-grid>
+<p>For testing purpose</p>
+  <button ion-button (click)="logout()">Logout</button>
 </ion-content>

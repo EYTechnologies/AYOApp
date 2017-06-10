@@ -35,7 +35,7 @@ export class Onboarding1Page {
      
      this.gender = this.navParams.get('gender');
      this.registerUser.push({gender: this.gender});
-     console.log('@#@#@#@@#@#@#');
+     console.log('First time data in userregister array');
      console.log(this.registerUser);
   }
 

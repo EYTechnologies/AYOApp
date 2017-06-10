@@ -41,7 +41,7 @@ export class UserdataProvider {
 
   setUsername(username, token) {
     this.storage.set('username', username);
-    this.storage.set(this.token, 'token');
+    this.storage.set('token', token);
   };
 
   getUsername() {

@@ -19,6 +19,8 @@ export class Onboarding3Page {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
 
       this.registerUser = this.navParams.get('data');
+      console.log("Register data for picture - ");
+      console.log(this.registerUser.profile_picture);
       this.picture = this.registerUser.profile_picture;
   }
 
@@ -26,8 +28,9 @@ export class Onboarding3Page {
     console.log('ionViewDidLoad Onboarding3Page');
   }
   next()
-  {
+  { 
     this.navCtrl.push(Onboarding4Page, {data: this.registerUser});
+
   }
 
 }
