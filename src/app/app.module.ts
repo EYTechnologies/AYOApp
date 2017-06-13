@@ -31,6 +31,7 @@ import { HttpModule } from '@angular/http';
 
 
 import { Geolocation } from '@ionic-native/geolocation';
+import { Camera } from '@ionic-native/camera';
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -94,7 +95,8 @@ const cloudSettings: CloudSettings = {
     Facebook,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserdataProvider,
-    Geolocation
+    Geolocation,
+    Camera
 
   ]
 })

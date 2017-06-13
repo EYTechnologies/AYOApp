@@ -16,20 +16,21 @@ export class UserdataProvider {
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
   username: any;
   token: any;
+  email: any;
 
   constructor(public events: Events, public storage: Storage) {
     console.log('Hello UserdataProvider Provider');
   }
 
-  login(username, token) {
+  login(username, token, email) {
     this.storage.set(this.HAS_LOGGED_IN, true);
-    this.setUsername(username, token);
+    this.setUsername(username, token, email);
     this.events.publish('user:login');
   };
 
   signup(username) {
     this.storage.set(this.HAS_LOGGED_IN, true);
-    this.setUsername(username, this.token);
+    this.setUsername(username, this.token, this.email);
     this.events.publish('user:signup');
   };
 
@@ -39,9 +40,10 @@ export class UserdataProvider {
     this.events.publish('user:logout');
   };
 
-  setUsername(username, token) {
+  setUsername(username, token, email) {
     this.storage.set('username', username);
     this.storage.set('token', token);
+    this.storage.set('email',email);
   };
 
   getUsername() {

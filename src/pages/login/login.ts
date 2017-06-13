@@ -116,7 +116,7 @@ usernotconnectedtofacebook(msg)
                     // console.log("User Facebook Data - "+this.userfacebookdata);
 
                     //local storage
-                    this.userData.login(this.userfacebookdata._id, this.userfacebookdata.token);
+                    this.userData.login(this.userfacebookdata._id, this.userfacebookdata.token, userinfo.email);
                     this.loadingPopup.dismiss();
 
                     // navigating to the onboarding page
