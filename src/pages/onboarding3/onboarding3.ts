@@ -20,8 +20,8 @@ export class Onboarding3Page {
 
       this.registerUser = this.navParams.get('data');
       console.log("Register data for picture - ");
-      console.log(this.registerUser.profile_picture);
-      this.picture = this.registerUser.profile_picture;
+      console.log(this.registerUser[0].profile_picture);
+      this.picture = this.registerUser[0].profile_picture;
   }
 
   ionViewDidLoad() {

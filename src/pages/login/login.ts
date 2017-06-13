@@ -87,56 +87,60 @@ userConnectedToFacebook(msg) {
   }
 
 usernotconnectedtofacebook(msg)
-  {
-    this.fb.login(['email','public_profile','user_friends']).then(msg => {
+{
+  this.fb.login(['email','public_profile','user_friends']).then(msg => {
 
-      this.loadingPopup.present();
-      console.log(msg.authResponse.userID);
+    this.loadingPopup.present();
+    console.log(msg.authResponse.userID);
 
-      this.fb.api('me?fields=email,first_name,last_name,about,birthday,gender,picture.width(200).height(200),location,id,relationship_status', null).then(userinfo => {
-                console.log("!@!@!@!@!@!@");
-                console.log(userinfo);
-                this.location =  {
-                  "coordinates": [0,0]
-                };
-                // API data - to send the data to the databse.
-                var link = 'https://ayo-app.herokuapp.com/api/users/register';
-                let headers = new Headers({ 'Content-Type': 'application/json' });
-                var data_string = JSON.stringify({username: userinfo.id, first_name: userinfo.first_name, last_name: userinfo.last_name, email: userinfo.email, location: this.location, profile_picture: userinfo.picture.data.url, dob: userinfo.birthday, gender: userinfo.gender, relationship_status: userinfo.relationship_status, preference: null});
+    this.fb.api('me?fields=email,first_name,last_name,about,birthday,gender,picture.width(200).height(200),location,id,relationship_status', null).then(userinfo => {
+              console.log("!@!@!@!@!@!@");
+              console.log(userinfo);
+              this.location =  {
+                "coordinates": [0,0]
+              };
+              // API data - to send the data to the databse.
+              var link = 'https://ayo-app.herokuapp.com/api/users/register';
+              let headers = new Headers({ 'Content-Type': 'application/json' });
+              var data_string = JSON.stringify({username: userinfo.id, first_name: userinfo.first_name, last_name: userinfo.last_name, email: userinfo.email, location: this.location, profile_picture: userinfo.picture.data.url, dob: userinfo.birthday, gender: userinfo.gender, relationship_status: userinfo.relationship_status, preference: null});
 
-                console.log('!@!@!@!@!@');
-                console.log(data_string);
-                
-                var options = new RequestOptions({headers: headers});
-                this.htttp.post(link, data_string, options)
-                  .map(res => res.json())
-                    .subscribe((data) => {
-                      console.log(data);
-                      this.userfacebookdata = data.data;
-                      // console.log("User Facebook Data - "+this.userfacebookdata);
+              console.log('!@!@!@!@!@');
+              console.log(data_string);
+              
+              var options = new RequestOptions({headers: headers});
+              this.htttp.post(link, data_string, options)
+                .map(res => res.json())
+                  .subscribe((data) => {
+                    console.log(data);
+                    this.userfacebookdata = data.data;
+                    // console.log("User Facebook Data - "+this.userfacebookdata);
 
-                      //local storage
-                      this.userData.login(this.userfacebookdata._id, this.userfacebookdata.token);
-                      this.loadingPopup.dismiss();
+                    //local storage
+                    this.userData.login(this.userfacebookdata._id, this.userfacebookdata.token);
+                    this.loadingPopup.dismiss();
 
-                      // navigating to the onboarding page
-                      this.navCtrl.setRoot(Onboarding1Page, {picture: userinfo.picture.data.url, dob: userinfo.birthday, gender: userinfo.gender, relationship_status: userinfo.relationship_status});
-                      // console.log(this.userfacebookdata[0].email);
-
-
-                    }, (err) => { 
-                      console.log(err); 
-                    });
+                    // navigating to the onboarding page
+                    this.navCtrl.setRoot(Onboarding1Page, {picture: userinfo.picture.data.url, dob: userinfo.birthday, gender: userinfo.gender, relationship_status: userinfo.relationship_status});
+                    // console.log(this.userfacebookdata[0].email);
 
 
+                  }, (err) => { 
+                    console.log(err); 
+                  });
+
+
+ 
+      }, err => {console.log(err)});
+
+
+  }, err => {console.log(err)});
+
+  
    
-        }, err => {console.log(err)});
+}
 
-
-    }, err => {console.log(err)});
-
-    
-     
-  }  
+  test() {
+    this.navCtrl.setRoot(Onboarding1Page, {picture: 'userinfo.picture.data.url', dob: 'userinfo.birthday', gender: 'male', relationship_status: 'userinfo.relationship_status'});
+  }
 
 }

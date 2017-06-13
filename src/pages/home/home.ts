@@ -29,6 +29,7 @@ export class HomePage {
    height: any;
    userheight: any;
    tokendata: any;
+   display_name: any;
 
   constructor(public userData: UserdataProvider, public appCtrl: App, public navParams: NavParams, public navCtrl: NavController, public http: Http, public loadingCtrl: LoadingController, public storage: Storage) {
      this.loadingPopup = this.loadingCtrl.create({
@@ -124,10 +125,11 @@ export class HomePage {
                     .subscribe((data) => {
                       console.log(data);
                       this.profiledata = data;
-                      this.gender = this.profiledata.data.gender;
+                      this.usergender = this.profiledata.data.gender;
+                      this.display_name = this.profiledata.data.display_name;
                       this.picture = this.profiledata.data.profile_picture;
                       this.loadingPopup.dismiss();
-                      
+                      this.userpreference = this.profiledata.data.preference; 
 
 
                     }, (err) => { 

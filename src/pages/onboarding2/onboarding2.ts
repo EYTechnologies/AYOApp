@@ -33,8 +33,10 @@ export class Onboarding2Page {
    	this.registerUser = this.navParams.get('data');
     
 
-  	this.dob = this.registerUser.dob;
-    this.usergender = this.registerUser.gender;
+  	this.dob = this.registerUser[1].dob;
+    console.log(this.dob);
+    this.usergender = this.registerUser[2].gender;
+    console.log(this.usergender);
     this.userpreference = 'Straight';
 
     
