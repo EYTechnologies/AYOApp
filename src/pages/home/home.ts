@@ -30,6 +30,7 @@ export class HomePage {
    userheight: any;
    tokendata: any;
    display_name: any;
+   email: any;
 
   constructor(public userData: UserdataProvider, public appCtrl: App, public navParams: NavParams, public navCtrl: NavController, public http: Http, public loadingCtrl: LoadingController, public storage: Storage) {
      this.loadingPopup = this.loadingCtrl.create({
@@ -42,9 +43,13 @@ export class HomePage {
    //           console.log("session token - "+this.token);
    //  });
 
-    this.storage.get('username').then((value) => {
-             this.userid = value;
-             this.loadprofiledata(this.userid);
+    // this.storage.get('username').then((value) => {
+    //          this.userid = value;
+    //          this.loadprofiledata(this.userid);
+    // });
+    this.storage.get('email').then((value) => {
+             this.email = value;
+             this.loadprofiledata(this.email);
     });
 
     this.gender = [
@@ -111,14 +116,14 @@ export class HomePage {
   ionViewDidLoad() {
   	            
               }
- loadprofiledata(userid)
+ loadprofiledata(email)
  {
                 this.loadingPopup.present();
-                console.log("id - "+this.userid);
+                console.log("emailid - "+this.email);
                
                 var link = 'http://ayo-app.herokuapp.com/api/users/retrieve';
                 let headers = new Headers({ 'Content-Type': 'application/json' });
-                var data_string = JSON.stringify({id:this.userid});
+                var data_string = JSON.stringify({id:this.email});
                 var options = new RequestOptions({headers: headers});
                 this.http.post(link, data_string, options)
                   .map(res => res.json())
