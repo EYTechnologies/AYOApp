@@ -10,6 +10,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 
+import * as firebase from 'firebase';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -49,6 +51,19 @@ export class MyApp {
           // Here you can do any higher level native things you might need.
           statusBar.styleDefault();
           splashScreen.hide();
+
+          //Initialize firebase with the credentials
+          const firebaseConfig = {
+            apiKey: "AIzaSyAGZksEhETlx1emtROSAWpkbJI9Cds3N-I",
+            authDomain: "testapp-45fba.firebaseapp.com",
+            databaseURL: "https://testapp-45fba.firebaseio.com",
+            projectId: "testapp-45fba",
+            storageBucket: "testapp-45fba.appspot.com",
+            messagingSenderId: "29725571671"
+          };
+
+          //firebase has missing dependency for promise-polyfill, need to do npm install promise-polyfill --save-exact
+          firebase.initializeApp({firebaseConfig});
         });
     })
 
