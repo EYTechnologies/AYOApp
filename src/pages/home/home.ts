@@ -120,7 +120,7 @@ export class HomePage {
  {
                 this.loadingPopup.present();
                 console.log("emailid - "+this.email);
-               
+               this.email = 'divyanshu.chat@yahoo.com';
                 var link = 'http://ayo-app.herokuapp.com/api/users/retrieve';
                 let headers = new Headers({ 'Content-Type': 'application/json' });
                 var data_string = JSON.stringify({id:this.email});
