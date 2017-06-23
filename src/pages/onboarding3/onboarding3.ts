@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, ActionSheetController } from 'ioni
 import { Onboarding4Page } from "../onboarding4/onboarding4";
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
-import { DataServiceProvider } from '../../providers/data-service/data-service';
+// import { DataServiceProvider } from '../../providers/data-service/data-service';
 
 
 /**
@@ -20,7 +20,7 @@ import { DataServiceProvider } from '../../providers/data-service/data-service';
 export class Onboarding3Page {
   picture: any;
   registerUser: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public actionsheetCtrl: ActionSheetController, private Camera: Camera, public dataService: DataServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public actionsheetCtrl: ActionSheetController, private Camera: Camera) {
 
       this.registerUser = this.navParams.get('data');
       console.log("Register data for picture - ");
@@ -122,11 +122,11 @@ export class Onboarding3Page {
   uploadImageFirebase(imagedata) {
     let self = this;
     let filename = 'pic' + new Date().getTime() + '.jpg';
-    self.dataService.uploadToFirebase(imagedata, filename).then((success) => {
-      console.log('Image Uploaded: ', success);
-    }, 
-    (error) => {
-      console.log('Error Uploading Image: ', error);
-    });
+    // self.dataService.uploadToFirebase(imagedata, filename).then((success) => {
+    //   console.log('Image Uploaded: ', success);
+    // }, 
+    // (error) => {
+    //   console.log('Error Uploading Image: ', error);
+    // });
   }
 }

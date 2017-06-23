@@ -74,9 +74,9 @@ export class Onboarding2Page {
     } else if (gender == 'female' && userpref == 'Gay') {
       this.registerUser.push({preference: 'female'});
     } else if (gender == 'male' && userpref == 'Bi') {
-      this.registerUser.push({preference: 'Other'});
+      this.registerUser.push({preference: 'other'});
     } else if (gender == 'female' && userpref == 'Bi') {
-      this.registerUser.push({preference: 'Other'});
+      this.registerUser.push({preference: 'other'});
     }
   }
   next()

@@ -31,6 +31,7 @@ export class HomePage {
    tokendata: any;
    display_name: any;
    email: any;
+   hometown: any;
 
   constructor(public userData: UserdataProvider, public appCtrl: App, public navParams: NavParams, public navCtrl: NavController, public http: Http, public loadingCtrl: LoadingController, public storage: Storage) {
      this.loadingPopup = this.loadingCtrl.create({
@@ -47,10 +48,10 @@ export class HomePage {
     //          this.userid = value;
     //          this.loadprofiledata(this.userid);
     // });
-    this.storage.get('email').then((value) => {
-             this.email = value;
-             this.loadprofiledata(this.email);
-    });
+    // this.storage.get('email').then((value) => {
+    //          this.email = value;
+    //          this.loadprofiledata(this.email);
+    // });
 
     this.gender = [
         {
@@ -114,33 +115,50 @@ export class HomePage {
   }
   
   ionViewDidLoad() {
-  	            
+  	      this.loadprofiledata();      
               }
- loadprofiledata(email)
+ loadprofiledata()
  {
                 this.loadingPopup.present();
                 console.log("emailid - "+this.email);
-               this.email = 'divyanshu.chat@yahoo.com';
+                this.email = 'divyanshu.chat@yahoo.com';
                 var link = 'http://ayo-app.herokuapp.com/api/users/retrieve';
                 let headers = new Headers({ 'Content-Type': 'application/json' });
-                var data_string = JSON.stringify({id:this.email});
+                var data_string = JSON.stringify({email:this.email});
                 var options = new RequestOptions({headers: headers});
                 this.http.post(link, data_string, options)
                   .map(res => res.json())
                     .subscribe((data) => {
-                      console.log(data);
-                      this.profiledata = data;
-                      this.usergender = this.profiledata.data.gender;
-                      this.display_name = this.profiledata.data.display_name;
-                      this.picture = this.profiledata.data.profile_picture;
+                      //console.log('!@!@!@!@', data);
+                      this.setUserDataFields(data);
                       this.loadingPopup.dismiss();
-                      this.userpreference = this.profiledata.data.preference; 
 
 
                     }, (err) => { 
                       console.log(err); 
                     });
  }
+
+  setUserDataFields(data) {
+    this.profiledata = data.data;
+    this.usergender = this.profiledata.gender;
+    this.display_name = this.profiledata.display_name;
+    this.picture = this.profiledata.profile_picture;    
+    this.userpreference = this.profiledata.preference;
+    this.token = this.profiledata.token;
+    this.userid = this.profiledata._id;
+  }
+
+  updateUserProfileData() {
+    var data = {token: this.token, id: this.userid, display_name: this.display_name, hometown: this.hometown, dob: this.dob, gender: this.usergender, relationship_status: this.userstatus, preference: this.userpreference};
+    var link = "http://ayo-app.herokuapp.com/api/users/profile";
+    var headers = new Headers({headers: 'Content-Type: application/json'});
+    var options = new RequestOptions({headers: headers});
+
+    console.log(this.userid, this.token, data);
+    this.http.put(link, data, options).map((res) => res.json()).subscribe((data)=> console.log(data), (err) => console.log(err))
+  }
+
   logout()
   {
   	this.userData.logout();
