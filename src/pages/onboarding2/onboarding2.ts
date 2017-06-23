@@ -60,20 +60,32 @@ export class Onboarding2Page {
 
   }
 
-    
   ionViewDidLoad() {
     console.log('ionViewDidLoad Onboarding2Page');
   }
 
-  setUserPreference() {
-    
+  setUserPreference(gender, userpref) {
+    if (gender == 'male' && userpref == 'Straight') {
+      this.registerUser.push({preference: 'female'});
+    } else if (gender == 'female' && userpref == 'Straight') {
+      this.registerUser.push({preference: 'male'});
+    } else if (gender == 'male' && userpref == 'Gay') {
+      this.registerUser.push({preference: 'male'});
+    } else if (gender == 'female' && userpref == 'Gay') {
+      this.registerUser.push({preference: 'female'});
+    } else if (gender == 'male' && userpref == 'Bi') {
+      this.registerUser.push({preference: 'Other'});
+    } else if (gender == 'female' && userpref == 'Bi') {
+      this.registerUser.push({preference: 'Other'});
+    }
   }
   next()
   { this.registerUser.splice(2, 1);
     this.registerUser.push({gender: this.usergender});
     console.log(this.registerUser);
     this.registerUser.splice(1, 1);
-    this.registerUser.push({preference: this.userpreference});
+    this.setUserPreference(this.usergender, this.userpreference);
+    //this.registerUser.push({preference: this.userpreference});
     this.registerUser.push({dob: this.dob});
     this.navCtrl.push(Onboarding3Page, {data: this.registerUser});
     console.log("onboarding 2 data pushed to 3 -");
