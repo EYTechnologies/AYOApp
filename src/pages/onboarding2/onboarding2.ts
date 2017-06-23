@@ -64,6 +64,10 @@ export class Onboarding2Page {
   ionViewDidLoad() {
     console.log('ionViewDidLoad Onboarding2Page');
   }
+
+  setUserPreference() {
+    
+  }
   next()
   { this.registerUser.splice(2, 1);
     this.registerUser.push({gender: this.usergender});
