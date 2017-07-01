@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, ActionSheetController } from 'ioni
 import { Onboarding4Page } from "../onboarding4/onboarding4";
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
+// import { DataServiceProvider } from '../../providers/data-service/data-service';
+
 
 /**
  * Generated class for the Onboarding3Page page.
@@ -32,95 +34,99 @@ export class Onboarding3Page {
   next()
   { 
     this.navCtrl.push(Onboarding4Page, {data: this.registerUser});
-
   }
 
-  uploadimage(){
-    let actionSheet = this.actionsheetCtrl.create({
-            title: 'Upload Image',
-            cssClass: 'action-sheets-basic-page',
-            buttons: [
-                {
-                    text: 'Gallery',
-                    role: 'destructive',
-                    icon: 'images',
-                    handler: () => {
-                        let options = {
-                            destinationType : this.Camera.DestinationType.FILE_URI,
-                            quality: 40,
-                            allowEdit : true,
-                            targetWidth: 300,
-                            targetHeight: 300,
-                            sourceType : this.Camera.PictureSourceType.PHOTOLIBRARY
-                        };
+  uploadImage() {
+  let actionSheet = this.actionsheetCtrl.create({
+    title: 'Upload Image',
+    cssClass: 'action-sheets-basic-page',
+    buttons: [
+      {
+        text: 'Gallery',
+        role: 'destructive',
+        icon: 'images',
+        handler: () => {
+          let options = {
+            destinationType : this.Camera.DestinationType.FILE_URI,
+            quality: 40,
+            allowEdit : true,
+            targetWidth: 300,
+            targetHeight: 300,
+            sourceType : this.Camera.PictureSourceType.PHOTOLIBRARY
+          };
 
-                        this.Camera.getPicture(options).then(
-                            (imageData) => {
-                                // imageData is either a base64 encoded string or a file URI
-                                // If it's base64:
-                                let base64Image = 'data:image/png;base64,' + imageData;
-                                //this.uploadimage(imageData);
+          this.Camera.getPicture(options).then(
+            (imageData) => {
+                // imageData is either a base64 encoded string or a file URI
+                // If it's base64:
+                //let base64Image = 'data:image/png;base64,' + imageData;
+                //this.uploadimage(imageData);
 
-                                this.uploadImageToAws(imageData);
-                                // console.log(imageData);
-                            },
-                            (err) => {
-                                // Handle error
-                            }
-                        );
-                        //this.cameraupload();
-                        //console.log('Image uploaded from gallery');
-                    }
-                },
-                {
-                    text: 'Camera',
-                    icon: 'camera',
-                    handler: () => {
-                        let options = {                            
-                            destinationType : this.Camera.DestinationType.FILE_URI,
-                            allowEdit : true,
-                            quality: 40,
-                            targetWidth: 300,
-                            targetHeight: 300,
-                            sourceType : this.Camera.PictureSourceType.CAMERA
-                        };
+                this.uploadImageFirebase(imageData);
+                // console.log(imageData);
+            },
+            (err) => {
+                // Handle error
+            }
+          );
+          //this.cameraupload();
+          //console.log('Image uploaded from gallery');
+        }
+      },
+      {
+        text: 'Camera',
+        icon: 'camera',
+        handler: () => {
+            let options = {                            
+              destinationType : this.Camera.DestinationType.FILE_URI,
+              allowEdit : true,
+              quality: 40,
+              targetWidth: 300,
+              targetHeight: 300,
+              sourceType : this.Camera.PictureSourceType.CAMERA
+            };
 
-                        this.Camera.getPicture(options).then(
-                            (imageData) => {
-                                // imageData is either a base64 encoded string or a file URI
-                                // If it's base64:
-                                let base64Image = 'data:image/png;base64,' + imageData;
-                                //this.uploadimage(imageData);
+        this.Camera.getPicture(options).then(
+          (imageData) => {
+            // imageData is either a base64 encoded string or a file URI
+            // If it's base64:
+            //let base64Image = 'data:image/png;base64,' + imageData;
+            //this.uploadimage(imageData);
 
-                                this.uploadImageToAws(imageData);
-                                console.log("Image From Camera");
-                            },
+            this.uploadImageFirebase(imageData);
+            console.log("Image From Camera");
+          },
 
-                            (err) => {
-                                // Handle error
-                            }
-                        );
-                        // console.log('Image clicked');
-                    }
-                },
+          (err) => {
+              // Handle error
+          }
+        );
+        // console.log('Image clicked');
+    }
+      },
+      {
+        text: 'Cancel',
+        role: 'cancel', // will always sort to be on the bottom
+        icon: 'close' ,
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }
+    ]
+  });
 
-                {
-                    text: 'Cancel',
-                    role: 'cancel', // will always sort to be on the bottom
-                    icon: 'close' ,
-                    handler: () => {
-                        console.log('Cancel clicked');
-                    }
-                }
-            ]
-        });
-
-        actionSheet.present();
-        console.log('Clicked to update picture');
+  actionSheet.present();
+  console.log('Clicked to update picture');
   }
 
-uploadImageToAws(imagedata)
-{
-  
-}
+  uploadImageFirebase(imagedata) {
+    let self = this;
+    let filename = 'pic' + new Date().getTime() + '.jpg';
+    // self.dataService.uploadToFirebase(imagedata, filename).then((success) => {
+    //   console.log('Image Uploaded: ', success);
+    // }, 
+    // (error) => {
+    //   console.log('Error Uploading Image: ', error);
+    // });
+  }
 }

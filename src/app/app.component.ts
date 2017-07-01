@@ -10,6 +10,10 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 
+import { HomePage } from '../pages/home/home';
+
+import * as firebase from 'firebase';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -27,14 +31,15 @@ export class MyApp {
                 console.log("has logged in - "+hasLoggedIn);
                      if (hasLoggedIn)
                      {
-                         // this.rootPage = TabsPage;
-                          this.rootPage =  Onboarding1Page;
-                          // this.rootPage = HomePage;
+                         //this.rootPage = TabsPage;
+                           //this.rootPage =  Onboarding1Page;
+                          this.rootPage = HomePage;
                         
                      } else {
-                         // this.rootPage = LoginPage;
-                         this.rootPage = Onboarding1Page;
+                         //this.rootPage = LoginPage;
+                         // this.rootPage = Onboarding1Page;
                             // this.rootPage = TabsPage;
+                            this.rootPage = HomePage;
                      }
               })
              
@@ -49,6 +54,20 @@ export class MyApp {
           // Here you can do any higher level native things you might need.
           statusBar.styleDefault();
           splashScreen.hide();
+
+          //Initialize firebase with the credentials
+          const firebaseConfig = {
+            apiKey: "AIzaSyB5X0_HQ0VZZPcSlYL64htDS4RdQosL8RE",
+            authDomain: "ayo-uploads.firebaseapp.com",
+            databaseURL: "https://ayo-uploads.firebaseio.com/",
+            projectId: "ayo-uploads",
+            storageBucket: "ayo-uploads.appspot.com",
+            messagingSenderId: "312488155282"
+          };
+
+          //firebase has missing dependency for promise-polyfill, need to do npm install promise-polyfill --save-exact
+          firebase.initializeApp({firebaseConfig});
+          
         });
     })
 

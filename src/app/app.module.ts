@@ -33,6 +33,8 @@ import { HttpModule } from '@angular/http';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Camera } from '@ionic-native/camera';
 
+import { DataServiceProvider } from '../providers/data-service/data-service';
+
 const cloudSettings: CloudSettings = {
   'core': {
     'app_id': 'cf5c2c8c'
@@ -96,7 +98,8 @@ const cloudSettings: CloudSettings = {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserdataProvider,
     Geolocation,
-    Camera
+    Camera,
+    DataServiceProvider
 
   ]
 })
