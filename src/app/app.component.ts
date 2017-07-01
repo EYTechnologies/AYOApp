@@ -57,12 +57,12 @@ export class MyApp {
 
           //Initialize firebase with the credentials
           const firebaseConfig = {
-            apiKey: "AIzaSyAGZksEhETlx1emtROSAWpkbJI9Cds3N-I",
-            authDomain: "testapp-45fba.firebaseapp.com",
-            databaseURL: "https://testapp-45fba.firebaseio.com",
-            projectId: "testapp-45fba",
-            storageBucket: "testapp-45fba.appspot.com",
-            messagingSenderId: "29725571671"
+            apiKey: "AIzaSyB5X0_HQ0VZZPcSlYL64htDS4RdQosL8RE",
+            authDomain: "ayo-uploads.firebaseapp.com",
+            databaseURL: "https://ayo-uploads.firebaseio.com/",
+            projectId: "ayo-uploads",
+            storageBucket: "ayo-uploads.appspot.com",
+            messagingSenderId: "312488155282"
           };
 
           //firebase has missing dependency for promise-polyfill, need to do npm install promise-polyfill --save-exact
